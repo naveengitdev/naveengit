@@ -1,0 +1,20 @@
+Challenge 1 :
+#First create resource group
+az group create --name testrg --location eastus
+
+#create 3 tier Virtual machines
+az vm create -n webvm --resource-group testrg --public-ip-sku Standard --image windows2019datacenter --admin-username azureadmin 
+az vm create -n appvm --resource-group testrg --image windows2019datacenter--admin-username azureadmin 
+az vm create -n MyVm --resource-group testrg --image windows2019datacenter --admin-username azureadmin
+
+
+Challenge 2 :
+As per the shared document and research, i believe we can use below command to get the JSON output.
+Windows vm :
+Invoke-RestMethod -Headers @{"Metadata"="true"} -Method GET -NoProxy -Uri "http://169.254.169.254/metadata/instance?api-version=2021-02-01" | ConvertTo-Json -Depth 64
+
+Linux vm : 
+curl -s -H Metadata:true --noproxy "*" "http://169.254.169.254/metadata/instance?api-version=2021-02-01" | jq
+
+
+Challenge 3 :
